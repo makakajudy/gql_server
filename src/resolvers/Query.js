@@ -22,7 +22,9 @@ function all_students (parent, args, context)  {
     }
   function search_user(parent,args,context){
     return context.prisma.user.findMany({where:{id:args.id}})
-    .then(posts=>posts[0])
+    .then(posts=>posts[0])// grabbing the first item in the array and 
+    //returning that in your resolver instead of unpacking the array to access the object with the data we looking for
+    
     
   }
   
