@@ -48,7 +48,7 @@ async function signup(parent, args, context, info) {
         url: args.url,
         description: args.description,
         postedBy: { connect: { id: userId } },
-      }
+      }//not working
     })
   }
   async function add_student(parent, args,context,info)  {     
