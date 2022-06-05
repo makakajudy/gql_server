@@ -1,0 +1,44 @@
+
+type Query {
+  info: String!
+  feed: [Link!]!
+  all_students:[Student_info!]!
+  all_users:[User]
+  search_student(student_id:ID!):Student_info
+  search_user(user_id:ID!):User
+}
+
+type Mutation {
+  
+  add_link(description:String!,url:String!):Link!
+  add_student(name:String!,age:Int!):Student_info! 
+  signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+
+}
+
+type Link {
+  id: ID!
+  description: String!
+  url: String!
+  postedBy: User
+}
+
+type Student_info {
+    id:ID!
+    name:String!
+    age:Int!
+
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  links: [Link!]!
+}

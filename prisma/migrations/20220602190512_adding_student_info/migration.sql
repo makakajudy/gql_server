@@ -1,0 +1,7 @@
+-- CreateTable
+CREATE TABLE "student_info" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "name" TEXT NOT NULL,
+    "age" TEXT NOT NULL
+);

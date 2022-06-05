@@ -1,0 +1,32 @@
+ /* Query: {
+      info: () => `This is the API of a Hackernews Clone`,
+      feed: async (parent, args, context) => {
+        return context.prisma.link.findMany()
+      },
+      student_detail:async (parent, args, context) => {
+        return context.prisma.student_info.findMany()
+      },
+    },
+    Mutation: {
+      // 2
+       add_link: (parent, args,context,info) => {     
+         const newlink = context.prisma.link.create({
+           data:{
+             url:args.url,
+             description:args.description,
+           }
+         })
+        
+          return newlink
+      }, 
+
+      add_student: (parent, args,context,info) => {     
+        const newStudent_info = context.prisma.student_info.create({
+          data:{
+            name:args.name,
+            age:args.age,
+          }
+        })
+         return newStudent_info
+     }, 
+    }, */
