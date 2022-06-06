@@ -1,11 +1,12 @@
 
 type Query {
   info: String!
-  feed: [Link!]!
+  feed:(filter:String) [Link!]!
   all_students:[Student_info!]!
   all_users:[User]
   search_student(student_id:ID!):Student_info
   search_user(user_id:ID!):User
+
 }
 
 type Mutation {
@@ -14,7 +15,9 @@ type Mutation {
   add_student(name:String!,age:Int!):Student_info! 
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
+  vote(linkId: ID!): Vote
 
+  
 }
 
 type Link {
@@ -22,6 +25,7 @@ type Link {
   description: String!
   url: String!
   postedBy: User
+  votes: [Vote!]!
 }
 
 type Student_info {
@@ -30,6 +34,7 @@ type Student_info {
     age:Int!
 
 }
+
 
 type AuthPayload {
   token: String
@@ -41,4 +46,18 @@ type User {
   name: String!
   email: String!
   links: [Link!]!
+}
+
+type Subscription {
+  newLink: Link
+}
+
+type Vote {
+  id: ID!
+  link: Link!
+  user: User!
+}
+type Subscription {
+  newLink: Link
+  newVote: Vote
 }
