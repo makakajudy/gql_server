@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs')
-const { SchemaMetaFieldDef } = require('graphql')
+//const { SchemaMetaFieldDef } = require('graphql')
 const jwt = require('jsonwebtoken')
 const { APP_SECRET, getUserId } = require('../utils')
 
@@ -44,7 +44,7 @@ async function signup(parent, args, context, info) {
   async function add_link(parent, args, context, info) {
     const { userId } = context;
   
-    return await context.prisma.link.create({
+    const newLink = await context.prisma.link.create({
       data: {
         url: args.url,
         description: args.description,
@@ -52,6 +52,8 @@ async function signup(parent, args, context, info) {
       }//is working have to add a user first and pass the token to the 
       //http header the format Authotization : toke without quotes
     })
+    context.pubsub.publish("NEW_LINK",newLink)
+    return newLink
   }
   async function add_student(parent, args,context,info)  {     
     return await context.prisma.student_info.create({
@@ -61,20 +63,7 @@ async function signup(parent, args, context, info) {
       }
     })
    }
-   async function post(parent, args, context, info) {
-    const { userId } = context;
-  
-    const newLink = await context.prisma.link.create({
-      data: {
-        url: args.url,
-        description: args.description,
-        postedBy: { connect: { id: userId } },
-      }
-    })
-    context.pubsub.publish("NEW_LINK", newLink)
-  
-    return newLink
-  }
+   
   async function vote(parent, args, context, info) {
     // 1
     const userId = context.userId
