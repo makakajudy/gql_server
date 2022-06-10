@@ -46,11 +46,7 @@ function all_students (parent, args, context)  {
 
     async function search_user(parent,args,context){
       const id= +args.id;
-      return context.prisma.user.findUnique({
-        where:{
-          id,
-        },
-      })  
+      return context.prisma.user.findUnique({where:{id}})  
       }
     
   
