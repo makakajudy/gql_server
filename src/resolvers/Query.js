@@ -35,16 +35,25 @@ function all_students (parent, args, context)  {
     return context.prisma.user.findMany()
 
   }
-  function search_student(parent,args,context){
-    return context.prisma.student_info.findMany({ where:{id:args.id}})   
-    .then(posts=>posts[0])    //not working
+  async function search_student(parent,args,context){
+    const id= +args.id;
+    return context.prisma.student_info.findUnique({
+      where:{
+        id,
+      },
+    })  
+    }
 
-    }
-  function search_user(parent,args,context){
-    return context.prisma.user.findMany({where:{id:args.id}})
-    .then(posts=>posts[0])//not working  grabbing the first item in the array and 
-    //returning that in your resolver instead of unpacking the array to access the object with the data we looking for
-    }
+    async function search_user(parent,args,context){
+      const id= +args.id;
+      return context.prisma.user.findUnique({
+        where:{
+          id,
+        },
+      })  
+      }
+    
+  
 
   
  

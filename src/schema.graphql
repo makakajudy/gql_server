@@ -4,8 +4,9 @@ type Query {
   feed(filter: String, skip: Int, take: Int, orderBy: LinkOrderByInput): [Link!]!
   all_students:[Student_info!]!
   all_users:[User]
-  search_student(student_id:ID!):Student_info
-  search_user(user_id:ID!):User
+
+  search_student(id:ID!):Student_info
+  search_user(id:ID!):User
 
 }
 
@@ -72,4 +73,11 @@ input LinkOrderByInput {
 enum Sort {
   asc
   desc
+}
+
+input SeachStuff{
+id:ID
+name:String
+
+
 }
