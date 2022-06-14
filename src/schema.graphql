@@ -1,13 +1,16 @@
 
 type Query {
   info: String!
-  feed(filter: String, skip: Int, take: Int, orderBy: LinkOrderByInput): [Link!]!
+  feed(filter: String, skip: Int, take: Int, orderBy: LinkOrderByInput): Feed
   all_students:[Student_info!]!
   all_users:[User]
-
   search_student(id:ID!):Student_info
   search_user(id:ID!):User
 
+ }
+ type Feed {
+  links: [Link!]
+  count: Int!
 }
 
 type Mutation {
@@ -17,6 +20,9 @@ type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
   vote(linkId: ID!): Vote
+  delete_student(id:ID!):Error
+  delete_user(id:ID!):Error
+  delete_link(id:ID!):Error
 
   
 }
@@ -75,9 +81,11 @@ enum Sort {
   desc
 }
 
-input SeachStuff{
-id:ID
-name:String
 
+
+
+
+type Error{
+message:String
 
 }

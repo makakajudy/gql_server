@@ -2,7 +2,10 @@
 /* Subscriptions are a GraphQL feature that allows a server to send data
  to its clients when a specific event happens.
  eg when a new Link element is created or
- when an existing Link element is upvoted  all in real time*/
+ when an existing Link element is upvoted  all in real time
+ like youtube subscription*/
+
+const { subscribe } = require("graphql")
 
 function newLinkSubscribe(parent, args, context, info) {
     return context.pubsub.asyncIterator("NEW_LINK")//
@@ -14,10 +17,12 @@ function newLinkSubscribe(parent, args, context, info) {
     //resolve field =>return data emitted by the AsyncIterator
     subscribe: newLinkSubscribe,
     resolve: payload => {
-      return payload
+      return payload,
+      console.log(subscribe)
     },
+   
   }
-
+//////////////////////////////////////////////votes//////////
   function newVoteSubscribe(parent, args, context, info) {
     //PubSub instance enables your asyncIterator()/server code to both 
     //publish newlink/events to a particular user/label and 

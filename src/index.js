@@ -12,7 +12,10 @@ const Mutation = require('./resolvers/Mutation')
 const User = require('./resolvers/User')
 const Link = require('./resolvers/Link')
 const Vote = require('./resolvers/Vote')
+const cors= require('cors')
 
+
+//const cors = new cors()
 const pubsub = new  PubSub()
 const prisma = new PrismaClient()
 
@@ -37,11 +40,12 @@ const server = new ApolloServer({
     'utf8'
   ),
   resolvers,
+  //context fun takes in a req
   context: ({ req }) => {
     return {
       ...req,
-      prisma,
-      pubsub,
+      prisma,//access the db and return data
+      pubsub, //set the subscription adnd return data to the client--- not working     
       userId:
         req && req.headers.authorization
           ? getUserId(req)
@@ -51,6 +55,7 @@ const server = new ApolloServer({
 });
 
 server
+
   .listen()
   .then(({ url }) =>
     console.log(`Server is running on ${url}`)

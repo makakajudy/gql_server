@@ -3,30 +3,34 @@
 function info() { return `This is the API of a Hackernews Clone`} 
 
  async function feed(parent, args, context) { 
-   const where=args.filter
+   //def {has to be a where clause} an obj that returns empty obj if no match is founs or an obj
+   //with array of data that meet the condition
+   //condition expression if arg.filter is true
+  //truth-if the dec OR url conatins the filer arg asign it to the filterObj
+  const where =args.filter
    ?{
-     OR :[
-       {description:{contains:args.filter}},
-       {url:{contains:args.filter}},
+    OR:
+    [{description:{contains:args.filter}},
+      {url:{contains:args.filter}},
        ],
-      }
-      :{}
-      const links=await context.prisma.link.findMany({
-        where,
-        skip: args.skip,//sets the starting point.by default skip isset to 0.the beginning
-        take: args.take,//its like the size that sets the upper limit
-        orderBy: args.orderBy,
-        })
-        const count = await context.prisma.link.count({ where })
+       }
+       :{}
+       //pass the filtrObj to the finadmany()
+  const filter_results=await context.prisma.link.findMany({
+    where,
+    skip:args.skip,
+    take:args.take,
+    orderBy:args.orderBy,
 
-        return {
-          
-          id: `main-feed:${JSON.stringify(args)}`,
-          links,
-          count,
-
-        }
+  })
+  const count=await context.prisma.link.count({where})
+  
+  return {
+    filter_results,
+    count,
+     }
 }
+
 function all_students (parent, args, context)  {
     return context.prisma.student_info.findMany()
   }
@@ -44,20 +48,18 @@ function all_students (parent, args, context)  {
     })  
     }
 
-    async function search_user(parent,args,context){
-      const id= +args.id;
-      return context.prisma.user.findUnique({where:{id}})  
-      }
-    
-  
+  async function search_user(parent,args,context){
+    const id= +args.id;
+    return context.prisma.user.findUnique({where:{id}})  
+    }
 
-  
- 
+    
+
 
 module.exports={info,  
   all_students,
   all_users,
   search_student,
   search_user,
-  feed
+  feed,
  } 
