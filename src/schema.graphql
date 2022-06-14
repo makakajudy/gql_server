@@ -9,7 +9,7 @@ type Query {
 
  }
  type Feed {
-  links: [Link!]
+  links: [Link!]!
   count: Int!
 }
 

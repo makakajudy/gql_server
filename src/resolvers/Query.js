@@ -16,7 +16,7 @@ function info() { return `This is the API of a Hackernews Clone`}
        }
        :{}
        //pass the filtrObj to the finadmany()
-  const filter_results=await context.prisma.link.findMany({
+  const filter_results = await context.prisma.link.findMany({
     where,
     skip:args.skip,
     take:args.take,
@@ -24,9 +24,9 @@ function info() { return `This is the API of a Hackernews Clone`}
 
   })
   const count=await context.prisma.link.count({where})
-  
+
   return {
-    filter_results,
+    filter_results,//not working as it should returns null list
     count,
      }
 }
