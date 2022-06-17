@@ -1,7 +1,8 @@
 
 type Query {
   info: String!
-  feed(filter: String, skip: Int, take: Int, orderBy: LinkOrderByInput): Feed
+  feed(filter: String, skip: Int, take: Int, orderBy: LinkOrderByInput):Feed!
+  
   all_students:[Student_info!]!
   all_users:[User]
   search_student(id:ID!):Student_info
@@ -9,7 +10,7 @@ type Query {
 
  }
  type Feed {
-  links: [Link!]!
+ links: [Link!]
   count: Int!
 }
 
